@@ -8,7 +8,7 @@ if (!is_array($taches)) {
     $taches = [];
 }
 
-// Traitement des actions POST
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     switch ($_POST['action']) {
         case 'ajouter':
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     }
 }
 
-// Filtrage et recherche
+
 $recherche = trim($_GET['recherche'] ?? '');
 $filtreStatut = $_GET['statut'] ?? '';
 $filtrePriorite = $_GET['priorite'] ?? '';
@@ -75,7 +75,7 @@ if (!empty($filtrePriorite)) {
     $tachesFiltrees = array_filter($tachesFiltrees, fn($t) => ($t['priorite'] ?? '') === $filtrePriorite);
 }
 
-// Tâche en retard : non terminée ET date limite dépassée
+
 $dateAujourdhui = date('Y-m-d');
 $estEnRetard = function($t) use ($dateAujourdhui) {
     if (($t['statut'] ?? '') === 'terminée') return false;
@@ -83,7 +83,7 @@ $estEnRetard = function($t) use ($dateAujourdhui) {
     return $limite && $limite < $dateAujourdhui;
 };
 
-// Statistiques
+
 $total = count($taches);
 $terminees = count(array_filter($taches, fn($t) => ($t['statut'] ?? '') === 'terminée'));
 $enRetard = count(array_filter($taches, $estEnRetard));
@@ -127,7 +127,7 @@ $pourcentageTerminees = $total > 0 ? round(($terminees / $total) * 100, 1) : 0;
         <h1 class="text-center"><i class="bi bi-check2-square"></i> Gestionnaire de Tâches</h1>
         <p class="text-center text-white-50 mb-4">Mini Projet PHP L2 IAGE-GDA 2026 - Semestre 1</p>
 
-        <!-- Formulaire d'ajout -->
+    
         <div class="card mb-4">
             <div class="card-header"><i class="bi bi-plus-circle"></i> Ajouter une tâche</div>
             <div class="card-body">
@@ -160,7 +160,7 @@ $pourcentageTerminees = $total > 0 ? round(($terminees / $total) * 100, 1) : 0;
             </div>
         </div>
 
-        <!-- Statistiques -->
+   
         <div class="row g-3 mb-4">
             <div class="col-6 col-md-3">
                 <div class="stats-card">
@@ -188,7 +188,7 @@ $pourcentageTerminees = $total > 0 ? round(($terminees / $total) * 100, 1) : 0;
             </div>
         </div>
 
-        <!-- Recherche et filtres -->
+   
         <div class="card mb-4">
             <div class="card-header"><i class="bi bi-funnel"></i> Recherche et filtres</div>
             <div class="card-body">
@@ -224,7 +224,7 @@ $pourcentageTerminees = $total > 0 ? round(($terminees / $total) * 100, 1) : 0;
             </div>
         </div>
 
-        <!-- Liste des tâches -->
+ 
         <div class="card">
             <div class="card-header">
                 <i class="bi bi-list-task"></i> Liste des tâches (<?= count($tachesFiltrees) ?>)
@@ -290,3 +290,4 @@ $pourcentageTerminees = $total > 0 ? round(($terminees / $total) * 100, 1) : 0;
     </div>
 </body>
 </html>
+
